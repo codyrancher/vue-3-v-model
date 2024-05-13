@@ -1,14 +1,25 @@
-<script setup lang="ts">
-import { defineProps } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
+import MessageInput from './MessageInput.vue';
 
-defineProps({msg: Object})
+export default defineComponent({
+  components: {
+    MessageInput
+  },
+  props: {
+    msg: {
+      type: Object,
+      required: true,
+    }
+  }
+});
 </script>
 
 <template>
   <div class="greetings">
     <h1 class="green">{{ msg.message }}</h1>
 
-    <input v-model="msg">
+    <MessageInput v-model="msg" />
     
     <div>
       {{ JSON.stringify(msg) }}
