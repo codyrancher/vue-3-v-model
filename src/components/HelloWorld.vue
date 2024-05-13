@@ -1,32 +1,38 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-export default defineComponent({
+const test = {
   props: {
-    msg: {
+    modelValue: {
       type: Object,
-      required: true,
+      default: () => {}
     }
   },
-  data() {
-    return {
-      message: '',
+  computed: {
+    value: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit('update:modelValue', value);
+      }
     }
-  },
-  created() {
-    this.message = this.msg.message;
   }
+};
+
+export default defineComponent({
+  mixins: [test],
 })
 </script>
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg.message }}</h1>
+    <h1 class="green">Hello {{ value }}</h1>
 
-    <input v-model="msg.message">
+    <input v-model="value">
     
     <div>
-      {{ JSON.stringify(msg) }}
+      {{ JSON.stringify(value) }}
     </div>
     
     <h3>
